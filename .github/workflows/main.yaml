@@ -19,8 +19,8 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        username: ${{ secrets.BMASTERS_ACTOR }}
+        password: ${{ secrets.BMASTERS_TOKEN }}
 
     - name: StormForger Docker meta
       id: stormforger_docker_meta
