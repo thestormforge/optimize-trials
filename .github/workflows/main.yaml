@@ -28,6 +28,7 @@ jobs:
       with:
         images: ghcr.io/${{ github.repository }}
         tag-sha: true
+        tag-edge-branch: main
         sep-tags: -stormforger,
     - name: StormForger build and push
       id: stormforger_docker_build
