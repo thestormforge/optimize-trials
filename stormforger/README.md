@@ -6,8 +6,8 @@ The StormForger trial job leverages the `forge` CLI to launch a test case. The i
 
 | Environment Variable | Description |
 | -------------------- | ----------- |
-| `TESTCASE`           | The name of the StormForge test case to launch (including the organization). |
-| `TESTCASEFILE`       | Path to the test case file mounted in the container. |
+| `TEST_CASE`           | The name of the StormForge test case to launch (including the organization). |
+| `TEST_CASE_FILE`       | Path to the test case file mounted in the container. |
 | `TARGET`             | Value to use for the `$target` JavaScript constant. |
 | `TITLE`              | Title to use for the test run. |
 | `NOTES`              | Notes to use for the test run (overwritten by `/etc/podinfo/labels` if present). |
@@ -32,9 +32,9 @@ spec:
       - name: stormforger
         image: redskyops/trial-jobs:0.0.1-stormforger
         env:
-        - name: TESTCASE
+        - name: TEST_CASE
           value: acme-inc/sandbox
-        - name: TESTCASEFILE
+        - name: TEST_CASE_FILE
           value: /cases/blackfriday.js
         - name: TITLE
           valueFrom:
