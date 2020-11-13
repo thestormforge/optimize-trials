@@ -13,7 +13,7 @@ fi
 
 # Launch and wait for the test case
 forge test-case launch "${TEST_CASE}" --test-case-file="/tmp/testcase.js" \
-  --title "${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS-"--validate"} \
+  --title "${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS} \
   --watch --output json | tee >(tail -n 1 > "/tmp/output.json")
 
 # Push the basic statistics
