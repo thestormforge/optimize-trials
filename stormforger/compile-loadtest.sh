@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # If there is no test case file, just get the current version from the server
-if [ ! -f "${TESTCASEFILE}" ]; then
-	forge test-case get "${TESTCASE}"
+if [ ! -f "${TEST_CASE_FILE}" ]; then
+	forge test-case get "${TEST_CASE}"
 	exit $?
 fi
 
@@ -28,4 +28,4 @@ fi
 
 
 # Add the actual test case script
-cat "${TESTCASEFILE}"
+cat "${TEST_CASE_FILE}"
