@@ -1,7 +1,7 @@
 FROM stormforger/cli
 
 USER root
-RUN apt-get install -y jq
+RUN apt-get install -y curl jq
 COPY docker-entrypoint.sh compile-loadtest.sh /usr/local/bin/
 USER forge
 
