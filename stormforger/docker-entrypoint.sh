@@ -4,7 +4,7 @@
 forge ping
 
 # Build the test case script
-compile-loadtest.sh > "/tmp/testcase.js"
+compile-loadtest.sh "/tmp/testcase.js"
 
 # Set the notes
 if [ -f "/etc/podinfo/labels" ] ; then
