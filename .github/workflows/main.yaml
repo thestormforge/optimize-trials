@@ -41,3 +41,23 @@ jobs:
         labels: ${{ steps.stormforger_docker_meta.outputs.labels }}
     - name: StormForger image digest
       run: echo ${{ steps.stormforger_docker_build.outputs.digest }}
+
+    - name: Locust Docker meta
+      id: locust_docker_meta
+      uses: crazy-max/ghaction-docker-meta@v1
+      with:
+        images: ghcr.io/${{ github.repository }}
+        tag-sha: true
+        tag-edge: true
+        sep-tags: -locust,
+    - name: Locust build and push
+      id: locust_docker_build
+      uses: docker/build-push-action@v2
+      with:
+        context: ./locust
+        file: ./locust/Dockerfile
+        push: true
+        tags: ${{ steps.locust_docker_meta.outputs.tags }}-locust
+        labels: ${{ steps.locust_docker_meta.outputs.labels }}
+    - name: Locust image digest
+      run: echo ${{ steps.locust_docker_build.outputs.digest }}

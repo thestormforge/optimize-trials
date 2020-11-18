@@ -9,3 +9,7 @@ This repository is a collection of containers suitable for use as trial jobs dur
 ### StormForger
 
 The StormForger trial job invokes a [StormForger](https://stormforger.com/) test case against your application, with each trial corresponding to a test run.
+
+### Locust
+
+The Locust trial job creates a [Locust](https://locust.io/) load test parametrized via environment variables.
