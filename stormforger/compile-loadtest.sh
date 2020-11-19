@@ -34,4 +34,4 @@ cat "${TEST_CASE_FILE}" >> "${output_path}"
 
 
 # Ensure the test case exists on the server
-#forge test-case create --update "${TEST_CASE}" "${output_path}"
+forge test-case create --update "${TEST_CASE}" "${output_path}"
