@@ -23,8 +23,8 @@ EOF
 # Set the target based on the environment variable
 if [ -n "${TARGET}" ]; then
 	cat <<-EOF >> "${output_path}"
-	const $target = "${TARGET}"
-	
+	const \$target = "${TARGET}";
+
 	EOF
 fi
 
