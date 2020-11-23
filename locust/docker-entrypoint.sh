@@ -5,7 +5,6 @@ HOST=${HOST:-http://localhost:8000}
 NUM_USERS=${NUM_USERS:-200}
 SPAWN_RATE=${SPAWN_RATE:-20}
 RUN_TIME=${RUN_TIME:-180}
-PUSHGATEWAY_URL=${LOAD_TEST_PAUSE:-http://prometheus:9091/metrics/job/trialRun}
 
 locust -f locustfile.py \
   --host "${HOST}" \
