@@ -4,6 +4,9 @@ on:
   push:
     branches:
     - main
+  pull_request:
+    branches:
+    - main
 
 jobs:
   main:
@@ -38,7 +41,8 @@ jobs:
         file: ./stormforger/Dockerfile
         push: true
         tags: ${{ steps.stormforger_docker_meta.outputs.tags }}-stormforger
-        labels: ${{ steps.stormforger_docker_meta.outputs.labels }}
+        #labels: ${{ steps.stormforger_docker_meta.outputs.labels }}
+        labels: 'org.opencontainers.image.source=https://github.com/${{ github.repository }}'
     - name: StormForger image digest
       run: echo ${{ steps.stormforger_docker_build.outputs.digest }}
 

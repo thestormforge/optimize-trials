@@ -14,6 +14,22 @@ The StormForger trial job leverages the `forge` CLI to launch a test case. The i
 | `STORMFORGER_JWT`    | Access token for the StormForger API. |
 | `PUSHGATEWAY_URL`    | The URL used push StormForger test run metrics. |
 
+## Metrics
+
+| Name |
+| ---- |
+| `apdex_75` |
+| `min` |
+| `max` |
+| `request_count` |
+| `error_ratio` |
+| `clients_launched` |
+| `mean` |
+| `stddev` |
+| `median` |
+| `percentile_95` |
+| `percentile_99` |
+
 ## Example Kubernetes Manifest
 
 The following Kubernetes Job manifest illustrates how you might leverage this trial job container.

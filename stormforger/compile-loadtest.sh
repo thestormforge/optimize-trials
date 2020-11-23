@@ -23,8 +23,8 @@ EOF
 # Set the target based on the environment variable
 if [ -n "${TARGET}" ]; then
 	cat <<-EOF >> "${output_path}"
-	const $target = "${TARGET}"
-	
+	const \$target = "${TARGET}";
+
 	EOF
 fi
 
@@ -34,4 +34,4 @@ cat "${TEST_CASE_FILE}" >> "${output_path}"
 
 
 # Ensure the test case exists on the server
-#forge test-case create --update "${TEST_CASE}" "${output_path}"
+forge test-case create --update "${TEST_CASE}" "${output_path}"
