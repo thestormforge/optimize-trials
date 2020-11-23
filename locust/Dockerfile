@@ -1,6 +1,11 @@
-FROM grubykarol/locust:1.2.3-python3.9-alpine3.12
+FROM locustio/locust
 
-RUN apk add --no-cache curl jq
-COPY parse_metrics.py docker-entrypoint.sh /locust/
+USER root
+COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
+RUN apt-get update && \
+    apt-get -y install curl jq
+COPY parse_metrics.py /locust/
+WORKDIR /locust
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
