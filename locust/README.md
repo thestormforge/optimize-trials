@@ -6,13 +6,39 @@ The metrics are then pushed to the prometheus push gateway.
 
 ## Configuration
 
-| Environment Variable | Description |
-| -------------------- | ----------- |
-| `HOST`               | Host to load test in the following format: "http://10.21.32.33" |
-| `NUM_USERS`            | Number of concurrent locust users |
-| `SPAWN_RATE`         |The rate per second in which users are spawned |
-| `RUN_TIME`           | Duration of the load test in seconds |
-| `PUSHGATEWAY_URL`    | The URL used push StormForger test run metrics. |
+| Environment Variable | Description | Default Value |
+| -------------------- | ----------- | ------------- |
+| `HOST`               | Host to load test in the following format: "http://10.21.32.33" | "http://localhost:8000" |
+| `NUM_USERS`          | Number of concurrent locust users | 200 |
+| `SPAWN_RATE`         |The rate per second in which users are spawned | 20 |
+| `RUN_TIME`           | Duration of the load test in seconds | 180 |
+| `PUSHGATEWAY_URL`    | The URL used to push Locust test run metrics. | "http://prometheus:9091/metrics/job/trialRun" |
+
+## Locust Metrics
+
+The following metrics are collected at the end of the job and pushed to
+`PUSHGATEWAY_URL`:
+```shell script
+  "request_count": 307,
+  "failure_count": 0,
+  "average_response_time": 335.0972685700326,
+  "min_response_time": 149.37174799999963,
+  "max_response_time": 863.829511,
+  "average_content_size": 60283.4332247557,
+  "requests_per_s": 34.08458474131345,
+  "failures_per_s": 0,
+  "p50": 260,
+  "p66": 360,
+  "p75": 430,
+  "p80": 480,
+  "p90": 650,
+  "p95": 720,
+  "p98": 770,
+  "p99": 800,
+  "p99_9": 860,
+  "p99_99": 860,
+  "p100": 860
+``` 
 
 ## Example Kubernetes Manifest
 
@@ -51,11 +77,11 @@ spec:
         - name: HOST
           value: "http://api-endpoint:port-number"
         - name: NUM_USERS
-          value: "400"
+          value: "200"
         - name: SPAWN_RATE
           value: "20"
         - name: RUN_TIME
-          value: "30"
+          value: "180"
         - name: PUSHGATEWAY_URL
           value: "http://prometheus:9091/metrics/job/trialRun/instance/locust-1"
         volumeMounts:
