@@ -43,8 +43,7 @@ jobs:
         file: ./stormforger/Dockerfile
         push: true
         tags: ${{ steps.stormforger_docker_meta.outputs.tags }}-stormforger
-        #labels: ${{ steps.stormforger_docker_meta.outputs.labels }}
-        labels: 'org.opencontainers.image.source=https://github.com/${{ github.repository }}'
+        labels: ${{ steps.stormforger_docker_meta.outputs.labels }}
     - name: StormForger image digest
       run: echo ${{ steps.stormforger_docker_build.outputs.digest }}
 
@@ -68,7 +67,6 @@ jobs:
         file: ./locust/Dockerfile
         push: true
         tags: ${{ steps.locust_docker_meta.outputs.tags }}-locust
-        #labels: ${{ steps.locust_docker_meta.outputs.labels }}
-        labels: 'org.opencontainers.image.source=https://github.com/${{ github.repository }}'
+        labels: ${{ steps.locust_docker_meta.outputs.labels }}
     - name: Locust image digest
       run: echo ${{ steps.locust_docker_build.outputs.digest }}
