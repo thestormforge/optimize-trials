@@ -16,8 +16,6 @@ jobs:
       uses: actions/checkout@v2
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v1
       with:
@@ -25,6 +23,9 @@ jobs:
         username: ${{ secrets.BMASTERS_ACTOR }}
         password: ${{ secrets.BMASTERS_TOKEN }}
 
+    - name: Set up Docker Buildx for StormForger
+      uses: docker/setup-buildx-action@v1
+      id: stormforger_builder
     - name: StormForger Docker meta
       id: stormforger_docker_meta
       uses: crazy-max/ghaction-docker-meta@v1
@@ -37,6 +38,7 @@ jobs:
       id: stormforger_docker_build
       uses: docker/build-push-action@v2
       with:
+        builder: ${{ steps.stormforger_builder.outputs.name }}
         context: ./stormforger
         file: ./stormforger/Dockerfile
         push: true
@@ -46,6 +48,9 @@ jobs:
     - name: StormForger image digest
       run: echo ${{ steps.stormforger_docker_build.outputs.digest }}
 
+    - name: Set up Docker Buildx for Locust
+      uses: docker/setup-buildx-action@v1
+      id: locust_builder
     - name: Locust Docker meta
       id: locust_docker_meta
       uses: crazy-max/ghaction-docker-meta@v1
@@ -58,11 +63,12 @@ jobs:
       id: locust_docker_build
       uses: docker/build-push-action@v2
       with:
+        builder: ${{ steps.locust_builder.outputs.name }}
         context: ./locust
         file: ./locust/Dockerfile
         push: true
         tags: ${{ steps.locust_docker_meta.outputs.tags }}-locust
-        #labels: ${{ steps.stormforger_docker_meta.outputs.labels }}
+        #labels: ${{ steps.locust_docker_meta.outputs.labels }}
         labels: 'org.opencontainers.image.source=https://github.com/${{ github.repository }}'
     - name: Locust image digest
       run: echo ${{ steps.locust_docker_build.outputs.digest }}
