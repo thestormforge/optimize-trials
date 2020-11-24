@@ -1,51 +1,44 @@
 # Trial Job - Locust
 
-The Locust job uses Locust v1.2.3 to launch a load test
-performed by locust and collect the metrics at the end of the job.
-The metrics are then pushed to the prometheus push gateway.
+The Locust job uses Locust to launch a load test performed by Locust and collect the metrics at the end of the job. The metrics are then pushed to the Prometheus Pushgateway.
 
 ## Configuration
 
 | Environment Variable | Description | Default Value |
 | -------------------- | ----------- | ------------- |
-| `HOST`               | Host to load test in the following format: "http://10.21.32.33" | "http://localhost:8000" |
-| `NUM_USERS`          | Number of concurrent locust users | 200 |
-| `SPAWN_RATE`         |The rate per second in which users are spawned | 20 |
-| `RUN_TIME`           | Duration of the load test in seconds | 180 |
-| `PUSHGATEWAY_URL`    | The URL used to push Locust test run metrics. | "http://prometheus:9091/metrics/job/trialRun" |
+| `HOST`               | Host to load test in the following format: "http://10.21.32.33" | `http://localhost:8000` |
+| `NUM_USERS`          | Number of concurrent locust users | `200` |
+| `SPAWN_RATE`         | The rate per second in which users are spawned | `20` |
+| `RUN_TIME`           | Duration of the load test in seconds | `180` |
+| `PUSHGATEWAY_URL`    | The URL used to push Locust test run metrics. | |
 
-## Locust Metrics
+## Metrics
 
-The following metrics are collected at the end of the job and pushed to
-`PUSHGATEWAY_URL`:
-```shell script
-  "request_count": 307,
-  "failure_count": 0,
-  "average_response_time": 335.0972685700326,
-  "min_response_time": 149.37174799999963,
-  "max_response_time": 863.829511,
-  "average_content_size": 60283.4332247557,
-  "requests_per_s": 34.08458474131345,
-  "failures_per_s": 0,
-  "p50": 260,
-  "p66": 360,
-  "p75": 430,
-  "p80": 480,
-  "p90": 650,
-  "p95": 720,
-  "p98": 770,
-  "p99": 800,
-  "p99_9": 860,
-  "p99_99": 860,
-  "p100": 860
-``` 
+| Name |
+| ---- |
+| `request_count` |
+| `failure_count` |
+| `average_response_time` |
+| `min_response_time` |
+| `max_response_time` |
+| `average_content_size` |
+| `requests_per_s` |
+| `failures_per_s` |
+| `p50` |
+| `p66` |
+| `p75` |
+| `p80` |
+| `p90` |
+| `p95` |
+| `p98` |
+| `p99` |
+| `p99_9` |
+| `p99_99` |
+| `p100` |
 
 ## Example Kubernetes Manifest
 
-The following Kubernetes Job manifest illustrates how you
-might leverage this trial job container. The environment variables
-are the arguments to the locust CLI and the prometheus
-pushgateway url. The locustfile is passed via a ConfigMap.
+The following Kubernetes Job manifest illustrates how you might leverage this trial job container. The environment variables are the arguments to the Locust CLI and the Prometheus Pushgateway URL. The locustfile is passed via a ConfigMap.
 
 ```yaml
 apiVersion: v1
@@ -100,8 +93,4 @@ spec:
               fieldPath: metadata.labels
 ```
 
-NOTE: If you are using this in an experiment,
-keep in mind that some values are set automatically.
-In particular, the `backoffLimit`, `restartPolicy`, and
-`PUSHGATEWAY_URL` environment variable are all introduced when
-evaluating a trial's job template.
+NOTE: If you are using this in an experiment, keep in mind that some values are set automatically. In particular, the `backoffLimit`, `restartPolicy`, and `PUSHGATEWAY_URL` environment variable are all introduced when evaluating a trial's job template.

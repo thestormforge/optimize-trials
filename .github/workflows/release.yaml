@@ -22,3 +22,12 @@ jobs:
         docker tag ghcr.io/${{ github.repository }}:${TAG} ${{ github.repository }}:latest-stormforger
         docker push ${{ github.repository }}:${TAG}
         docker push ${{ github.repository }}:latest-stormforger
+
+    - name: Locust push release images
+      run: |
+        TAG=${GITHUB_REF##*/}-stormforger
+        docker pull ghcr.io/${{ github.repository }}:${TAG}
+        docker tag ghcr.io/${{ github.repository }}:${TAG} ${{ github.repository }}:${TAG}
+        docker tag ghcr.io/${{ github.repository }}:${TAG} ${{ github.repository }}:latest-locust
+        docker push ${{ github.repository }}:${TAG}
+        docker push ${{ github.repository }}:latest-locust

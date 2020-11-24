@@ -13,10 +13,12 @@ fi
 
 # Launch and wait for the test case
 forge test-case launch "${TEST_CASE}" --test-case-file="/tmp/testcase.js" \
-  --title "${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS} \
-  --watch --output json | tee >(tail -n 1 > "/tmp/output.json")
+	--title "${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS} \
+	--watch --output json | tee >(tail -n 1 > "/tmp/output.json")
 
 # Push the basic statistics
-cat "/tmp/output.json" \
-  | jq -r '.data.attributes.basic_statistics|keys[] as $k | "\($k) \(.[$k])"' \
-  | curl --data-binary @- "${PUSHGATEWAY_URL}"
+if [ -n "${PUSHGATEWAY_URL}" ]; then
+	cat "/tmp/output.json" \
+		| jq -r '.data.attributes.basic_statistics|keys[] as $k | "\($k) \(.[$k])"' \
+		| curl --data-binary @- "${PUSHGATEWAY_URL}"
+fi

@@ -62,6 +62,7 @@ jobs:
         file: ./locust/Dockerfile
         push: true
         tags: ${{ steps.locust_docker_meta.outputs.tags }}-locust
-        labels: ${{ steps.locust_docker_meta.outputs.labels }}
+        #labels: ${{ steps.stormforger_docker_meta.outputs.labels }}
+        labels: 'org.opencontainers.image.source=https://github.com/${{ github.repository }}'
     - name: Locust image digest
       run: echo ${{ steps.locust_docker_build.outputs.digest }}

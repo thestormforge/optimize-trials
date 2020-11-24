@@ -1,11 +1,12 @@
 FROM locustio/locust
 
 USER root
-COPY docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
-RUN apt-get update && \
-    apt-get -y install curl jq
-COPY parse_metrics.py /locust/
-WORKDIR /locust
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		curl \
+		jq \
+	&& rm -rf /var/lib/apt/lists/*
+COPY docker-entrypoint.sh /usr/local/bin/
+COPY parse_metrics.py /home/locust/
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+USER locust
+ENTRYPOINT ["docker-entrypoint.sh"]
