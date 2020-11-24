@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-locust -f locustfile.py \
+locust -f "${LOCUSTFILE:-/mnt/locust/locustfile.py}" \
 	--host "${HOST:-http://localhost:8000}" \
 	--user "${NUM_USERS:-200}" \
 	--spawn-rate "${SPAWN_RATE:-20}" \

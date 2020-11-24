@@ -6,6 +6,7 @@ The Locust job uses Locust to launch a load test performed by Locust and collect
 
 | Environment Variable | Description | Default Value |
 | -------------------- | ----------- | ------------- |
+| `LOCUSTFILE`         | Location of the locustfile to run | `/mnt/locust/locustfile.py` |
 | `HOST`               | Host to load test in the following format: "http://10.21.32.33" | `http://localhost:8000` |
 | `NUM_USERS`          | Number of concurrent locust users | `200` |
 | `SPAWN_RATE`         | The rate per second in which users are spawned | `20` |
