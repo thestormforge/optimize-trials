@@ -80,8 +80,7 @@ spec:
           value: "http://prometheus:9091/metrics/job/trialRun/instance/locust-1"
         volumeMounts:
           - name: locustconfig
-            mountPath: /locust/locustfile.py
-            subPath: locustfile.py
+            mountPath: /mnt/locust
       volumes:
       - name: locustconfig
         configMap:
