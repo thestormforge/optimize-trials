@@ -25,6 +25,7 @@ The Locust job uses Locust to launch a load test performed by Locust and collect
 | `average_content_size` |
 | `requests_per_s` |
 | `failures_per_s` |
+| `error_ratio` |
 | `p50` |
 | `p66` |
 | `p75` |

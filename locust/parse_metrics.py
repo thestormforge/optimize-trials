@@ -24,6 +24,8 @@ def main(args):
             row.pop("Median Response Time")
             row = {parse_metric_key(k): float(v) for k, v in row.items()}
             metrics_dict = row
+            metrics_dict["errorr_ratio"] = float(
+                metrics_dict["failure_count"] / metrics_dict["request_count"])
     with open("output.json", "w") as fp:
         json.dump(metrics_dict, fp)
 
