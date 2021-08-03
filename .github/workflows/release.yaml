@@ -14,14 +14,14 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: StormForger push release images
+    - name: StormForge Performance push release images
       run: |
-        TAG=${GITHUB_REF##*/}-stormforger
+        TAG=${GITHUB_REF##*/}-stormforge-perf
         docker pull ghcr.io/${{ github.repository }}:${TAG}
         docker tag ghcr.io/${{ github.repository }}:${TAG} ${{ github.repository }}:${TAG}
-        docker tag ghcr.io/${{ github.repository }}:${TAG} ${{ github.repository }}:latest-stormforger
+        docker tag ghcr.io/${{ github.repository }}:${TAG} ${{ github.repository }}:latest-stormforge-perf
         docker push ${{ github.repository }}:${TAG}
-        docker push ${{ github.repository }}:latest-stormforger
+        docker push ${{ github.repository }}:latest-stormforge-perf
 
     - name: Locust push release images
       run: |

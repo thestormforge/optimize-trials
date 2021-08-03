@@ -14,7 +14,7 @@ cat <<EOF > "${output_path}"
 /*
  * NOTICE: DO NOT EDIT!
  *
- * This file is managed via https://github.com/redskyops/trial-jobs
+ * This file is managed via https://github.com/thestormforge/optimize-trials
  */
 
 EOF

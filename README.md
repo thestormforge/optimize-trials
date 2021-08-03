@@ -6,9 +6,9 @@ This repository is a collection of containers suitable for use as trial jobs dur
 
 ## Trial Jobs
 
-### StormForger
+### StormForge Performance
 
-The StormForger trial job invokes a [StormForger](https://stormforger.com/) test case against your application, with each trial corresponding to a test run.
+The StormForge Performance trial job invokes a [StormForge Performance](https://www.stormforge.io/performance-testing/) test case against your application, with each trial corresponding to a test run.
 
 ### Locust
 

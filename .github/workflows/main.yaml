@@ -25,29 +25,29 @@ jobs:
         username: ${{ secrets.BMASTERS_ACTOR }}
         password: ${{ secrets.BMASTERS_TOKEN }}
 
-    - name: Set up Docker Buildx for StormForger
+    - name: Set up Docker Buildx for StormForge Performance
       uses: docker/setup-buildx-action@v1
-      id: stormforger_builder
-    - name: StormForger Docker meta
-      id: stormforger_docker_meta
+      id: stormforge_perf_builder
+    - name: StormForge Performance Docker meta
+      id: stormforge_perf_docker_meta
       uses: crazy-max/ghaction-docker-meta@v1
       with:
         images: ghcr.io/${{ github.repository }}
         tag-sha: true
         tag-edge: true
-        sep-tags: -stormforger,
-    - name: StormForger build and push
-      id: stormforger_docker_build
+        sep-tags: -stormforge-perf,
+    - name: StormForge Performance build and push
+      id: stormforge_perf_docker_build
       uses: docker/build-push-action@v2
       with:
-        builder: ${{ steps.stormforger_builder.outputs.name }}
-        context: ./stormforger
-        file: ./stormforger/Dockerfile
+        builder: ${{ steps.stormforge_perf_builder.outputs.name }}
+        context: ./stormforge-perf
+        file: ./stormforge-perf/Dockerfile
         push: true
-        tags: ${{ steps.stormforger_docker_meta.outputs.tags }}-stormforger
-        labels: ${{ steps.stormforger_docker_meta.outputs.labels }}
-    - name: StormForger image digest
-      run: echo ${{ steps.stormforger_docker_build.outputs.digest }}
+        tags: ${{ steps.stormforge_perf_docker_meta.outputs.tags }}-stormforge-perf
+        labels: ${{ steps.stormforge_perf_docker_meta.outputs.labels }}
+    - name: StormForge Performance image digest
+      run: echo ${{ steps.stormforge_perf_docker_build.outputs.digest }}
 
     - name: Set up Docker Buildx for Locust
       uses: docker/setup-buildx-action@v1
