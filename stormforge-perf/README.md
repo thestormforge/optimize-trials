@@ -45,8 +45,8 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-      - name: stormforge-perf
-        image: redskyops/trial-jobs:0.0.1-stormforge-perf
+      - name: black-friday
+        image: thestormforge/optimize-trials:latest-stormforge-perf
         env:
         - name: TEST_CASE
           value: acme-inc/sandbox

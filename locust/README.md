@@ -65,8 +65,8 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-      - name: locust
-        image: redskyops/trial-jobs:0.0.1-locust
+      - name: minimal-load
+        image: thestormforge/optimize-trials:latest-locust
         env:
         - name: HOST
           value: "http://api-endpoint:port-number"
