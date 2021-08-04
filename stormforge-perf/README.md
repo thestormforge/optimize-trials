@@ -1,18 +1,18 @@
-# Trial Job - StormForger
+# Trial Job - StormForge Performance
 
-The StormForger trial job leverages the `forge` CLI to launch a test case. The image will look for a test case definition (or will check to make sure it exists). Additionally, the image can introduce some JavaScript constants which can be referenced from the test case.
+The StormForge Performance trial job leverages the `forge` CLI to launch a test case. The image will look for a test case definition (or will check to make sure it exists). Additionally, the image can introduce some JavaScript constants which can be referenced from the test case.
 
 ## Configuration
 
 | Environment Variable | Description |
 | -------------------- | ----------- |
-| `TEST_CASE`           | The name of the StormForge test case to launch (including the organization). |
+| `TEST_CASE`           | The name of the StormForge Performance test case to launch (including the organization). |
 | `TEST_CASE_FILE`       | Path to the test case file mounted in the container. |
 | `TARGET`             | Value to use for the `$target` JavaScript constant. |
 | `TITLE`              | Title to use for the test run. |
 | `NOTES`              | Notes to use for the test run (overwritten by `/etc/podinfo/labels` if present). |
-| `STORMFORGER_JWT`    | Access token for the StormForger API. |
-| `PUSHGATEWAY_URL`    | The URL used push StormForger test run metrics. |
+| `STORMFORGER_JWT`    | Access token for the StormForge Performance API. |
+| `PUSHGATEWAY_URL`    | The URL used push StormForge Performance test run metrics. |
 
 ## Metrics
 
@@ -45,8 +45,8 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-      - name: stormforger
-        image: redskyops/trial-jobs:0.0.1-stormforger
+      - name: black-friday
+        image: thestormforge/optimize-trials:latest-stormforge-perf
         env:
         - name: TEST_CASE
           value: acme-inc/sandbox
@@ -60,7 +60,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: accessToken
-              name: stormforger-service-account
+              name: stormforge-service-account
         - name: PUSHGATEWAY_URL
           value: http://pushgateway:9091/metrics/job/trialRun/instance/sandbox-1
         volumeMounts:
@@ -68,12 +68,12 @@ spec:
           name: podinfo
           readOnly: true
         - mountPath: /cases
-          name: stormforger-test-case-file
+          name: stormforge-test-case-file
           readOnly: true
       volumes:
-      - name: stormforger-test-case-file
+      - name: stormforge-test-case-file
         configMap:
-          name: stormforger-test-case
+          name: stormforge-test-case
       - name: podinfo
         downwardAPI:
           items:
