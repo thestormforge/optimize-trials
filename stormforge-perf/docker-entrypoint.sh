@@ -1,20 +1,47 @@
 #!/bin/bash
+set -e
+
 
 # Check that we can talk to the API
 forge ping
 
-# Build the test case script
-compile-loadtest.sh "/tmp/testcase.js"
 
-# Set the notes
-if [ -f "/etc/podinfo/labels" ] ; then
-	NOTES="$(cat /etc/podinfo/labels)"
+# Launch the test case
+args=(--watch --output json)
+
+if [ -n "${TITLE}" ] ; then
+	args+=(--title "${TITLE}")
 fi
 
-# Launch and wait for the test case
-forge test-case launch "${TEST_CASE}" --test-case-file="/tmp/testcase.js" \
-	--title "${TITLE}" --notes="${NOTES}" ${LAUNCH_ARGS} \
-	--watch --output json | tee >(tail -n 1 > "/tmp/output.json")
+if [ -n "${NOTES}" ] ; then
+	args+=(--notes "${NOTES}")
+fi
+
+if [ -n "${REGION}" ] ; then
+	args+=(--region "${REGION}")
+fi
+
+if [ -n "${SIZING}" ] ; then
+	args+=(--sizing "${SIZING}")
+fi
+
+if [ -n "${TARGET}" ]; then
+	args+=(--define "target=${TARGET}")
+fi
+
+if [ -f "${TEST_CASE_FILE}" ] ; then
+	args+=(--test-case-file "${TEST_CASE_FILE}")
+fi
+
+if [ -f "/etc/podinfo/labels" ] ; then
+	while read -r label; do
+		args+=(--label "${label}")
+	done <"/etc/podinfo/labels"
+fi
+
+forge test-case launch "${TEST_CASE}" "${args[@]}" \
+	| tee >(tail -n 1 > "/tmp/output.json")
+
 
 # Push the basic statistics
 if [ -n "${PUSHGATEWAY_URL}" ]; then

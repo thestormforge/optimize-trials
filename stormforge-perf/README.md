@@ -6,13 +6,19 @@ The StormForge Performance trial job leverages the `forge` CLI to launch a test 
 
 | Environment Variable | Description |
 | -------------------- | ----------- |
-| `TEST_CASE`           | The name of the StormForge Performance test case to launch (including the organization). |
-| `TEST_CASE_FILE`       | Path to the test case file mounted in the container. |
-| `TARGET`             | Value to use for the `$target` JavaScript constant. |
+| `TEST_CASE`          | The _required_ name of the StormForge Performance test case to launch (including the organization). |
 | `TITLE`              | Title to use for the test run. |
-| `NOTES`              | Notes to use for the test run (overwritten by `/etc/podinfo/labels` if present). |
+| `NOTES`              | Notes to use for the test run. |
+| `REGION`             | Region to start the test run in. |
+| `SIZING`             | Cluster sizing to use for the test run. |
+| `TARGET`             | Value to use for the `target` definition. |
+| `TEST_CASE_FILE`     | Path to the test case file mounted in the container. |
 | `STORMFORGER_JWT`    | Access token for the StormForge Performance API. |
 | `PUSHGATEWAY_URL`    | The URL used push StormForge Performance test run metrics. |
+
+| Files | Description |
+| ----- | ----------- |
+| `/etc/podinfo/labels` | If present, `name="value"` per-line labels to set on the test run. |
 
 ## Metrics
 
