@@ -6,6 +6,12 @@ set -e
 forge ping
 
 
+# Make sure TEST_CASE has an organization, just take the first one
+if [ "${TEST_CASE}" = "$(basename ${TEST_CASE})" ] ; then
+	TEST_CASE="$(forge organization list --output plain | head -1)/${TEST_CASE}"
+fi
+
+
 # Launch the test case
 args=(--watch --output json)
 
