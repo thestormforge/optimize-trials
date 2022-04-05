@@ -14,4 +14,6 @@ if [ -n "${PUSHGATEWAY_URL}" ]; then
 	cat "output.json" \
 		| jq -r '.|keys[] as $k | "\($k) \(.[$k])"' \
 		| curl --data-binary @- "${PUSHGATEWAY_URL}"
+else
+	echo "No Pushgateway URL" 1>&2
 fi
