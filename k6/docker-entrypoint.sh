@@ -7,17 +7,17 @@ TEST_CASE_FILE=${TEST_CASE_FILE:-"/scripts/load_script.js"}
 TEST_CASE_OUTPUT=${TEST_CASE_OUTPUT:-"prometheus.txt"}
 
 if ! [ -f "${TEST_CASE_FILE}" ]; then
-        echo "A test case JS file must be provided." 1>&2
-        exit 1
+  echo "A test case JS file must be provided." 1>&2
+  exit 1
 fi
 
 # Check that we have a Prometheus Pushgateway defined
 if [ -z "${PUSHGATEWAY_URL}" ]; then
-        echo "No Pushgateway URL" 1>&2
-				exit 1
+  echo "No Pushgateway URL" 1>&2
+  exit 1
 fi
 
-COMBINED_TEST_CASE_FILE="/home/k6/combined_load_script.js"
+COMBINED_TEST_CASE_FILE="/tmp/combined_load_script.js"
 
 # Check for a custom handleSummary() in the provided load_script, add it otherwise
 grep -q "export \+function \+handleSummary" ${TEST_CASE_FILE} && cp ${TEST_CASE_FILE} ${COMBINED_TEST_CASE_FILE} || cat ${TEST_CASE_FILE} handleSummary.js > ${COMBINED_TEST_CASE_FILE}
@@ -29,8 +29,8 @@ k6 run "${COMBINED_TEST_CASE_FILE}"
 
 # If
 if ! [ -f "${TEST_CASE_OUTPUT}" ]; then
-        echo "Test case output was not found. Unable to push to Prometheus." 1>&2
-        exit 1
+  echo "Test case output was not found. Unable to push to Prometheus." 1>&2
+  exit 1
 fi
 
 # Push to the Prometheus PushGateway
