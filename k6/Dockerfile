@@ -2,7 +2,7 @@ FROM grafana/k6
 
 USER root
 RUN apk add --no-cache \
-		curl
+		curl jq
 COPY docker-entrypoint.sh /usr/local/bin/
 COPY handleSummary.js .
 
