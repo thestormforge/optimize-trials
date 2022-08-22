@@ -69,13 +69,15 @@ if ! [ -f "${TEST_CASE_OUTPUT}" ]; then
   exit 1
 fi
 
-# Push to the Prometheus PushGateway
-cat ${TEST_CASE_OUTPUT}
-PUSH_OUTPUT=$(cat ${TEST_CASE_OUTPUT} | curl --fail-with-body -s --data-binary @- "${PUSHGATEWAY_URL}" &2>1)
+# Push to the Prometheus PushGateway if specified
+if [ -n "${PUSHGATEWAY_URL}" ]; then
+  cat ${TEST_CASE_OUTPUT}
+  PUSH_OUTPUT=$(cat ${TEST_CASE_OUTPUT} | curl --fail-with-body -s --data-binary @- "${PUSHGATEWAY_URL}" &2>1)
 
-if [ -n "${PUSH_OUTPUT}" ]; then
-  echo "Pushgateway returned an error (${PUSH_OUTPUT}). "
-  exit 1
+  if [ -n "${PUSH_OUTPUT}" ]; then
+    echo "Pushgateway returned an error (${PUSH_OUTPUT}). "
+    exit 1
+  fi
 fi
 
 exit $?
