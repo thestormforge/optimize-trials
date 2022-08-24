@@ -81,4 +81,4 @@ if [ -n "${PUSHGATEWAY_URL}" ]; then
 fi
 
 exit $?
-} 2>&1 | tee -a /proc/1/fd/1
+} 2>&1
