@@ -8,13 +8,14 @@ stats() {
 
 TEST_CASE_FILE="${TEST_CASE_FILE:-/test/test.jmx}"
 REPORT_DIR="/tmp/jmeter-report"
+JMETER_ARGS=${JMETER_ARGS:-}
 
 if [ ! -f "${TEST_CASE_FILE}" ]; then
 	echo "ERROR: TEST_CASE_FILE=${TEST_CASE_FILE} not found. Did you forget to mount as volume or via ConfigMap?" > /dev/stderr
 	exit 1
 fi
 
-jmeter -n -t "${TEST_CASE_FILE}" -l "results.dat" -e -o "${REPORT_DIR}"
+jmeter -n -t "${TEST_CASE_FILE}" -l "results.dat" -e -o "${REPORT_DIR}" $JMETER_ARGS
 
 stats
 

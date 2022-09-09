@@ -2,6 +2,10 @@
 
 The StormForge Performance trial job leverages the `forge` CLI to launch a test case. The image will look for a test case definition (or will check to make sure it exists). Additionally, the image can introduce some JavaScript constants which can be referenced from the test case.
 
+## Usage
+
+Mount volume with `test.jmx` into `/test`. Configure Trial to use either `prometheus` setupTask or manually define `PUSHGATEWAY_URL`.
+
 ## Configuration
 
 | Environment Variable | Description | Default |
