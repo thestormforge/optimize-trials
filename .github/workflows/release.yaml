@@ -31,3 +31,12 @@ jobs:
         docker tag ghcr.io/${{ github.repository }}:${TAG} ${{ github.repository }}:latest-locust
         docker push ${{ github.repository }}:${TAG}
         docker push ${{ github.repository }}:latest-locust
+
+    - name: JMeter push release images
+      run: |
+        TAG=${GITHUB_REF##*/}-jmeter
+        docker pull ghcr.io/${{ github.repository }}:${TAG}
+        docker tag ghcr.io/${{ github.repository }}:${TAG} ${{ github.repository }}:${TAG}
+        docker tag ghcr.io/${{ github.repository }}:${TAG} ${{ github.repository }}:latest-jmeter
+        docker push ${{ github.repository }}:${TAG}
+        docker push ${{ github.repository }}:latest-jmeter
