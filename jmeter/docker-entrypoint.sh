@@ -15,7 +15,7 @@ if [ ! -f "${TEST_CASE_FILE}" ]; then
 	exit 1
 fi
 
-jmeter -n -t "${TEST_CASE_FILE}" -l "results.dat" -e -o "${REPORT_DIR}" $JMETER_ARGS
+jmeter -n -t "${TEST_CASE_FILE}" -l "/tmp/results.dat" -e -o "${REPORT_DIR}" $JMETER_ARGS
 
 stats
 
