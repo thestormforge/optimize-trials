@@ -90,8 +90,8 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         builder: ${{ steps.jmeter_builder.outputs.name }}
-        context: ./locust
-        file: ./locust/Dockerfile
+        context: ./jmeter
+        file: ./jmeter/Dockerfile
         push: true
         tags: ${{ steps.jmeter_docker_meta.outputs.tags }}-jmeter
         labels: ${{ steps.jmeter_docker_meta.outputs.labels }}
