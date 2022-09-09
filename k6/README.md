@@ -13,7 +13,7 @@ the metrics need to be massaged to be pushable to Prometheus. As a result, we
 make use of k6's handleSummary() override function to format the output metrics
 as shown below. If your test case already defines a handleSummary() function it
 will not be overridden and, consequently, you will need to ensure your output
-format can be pushed to Prometheus and you appropriately reference them in your
+format can be pushed to Prometheus as metrics and you appropriately reference them in your
 experiment files.
 
 ## Configuration
