@@ -12,6 +12,7 @@ Mount volume with `test.jmx` into `/test`. Configure Trial to use either `promet
 | -------------------- | ----------- | ------- |
 | `TEST_CASE_FILE`     | Path to the JMeter test definition. | `/test/test.jmx` |
 | `PUSHGATEWAY_URL`    | The URL used push StormForge Performance test run metrics. | |
+| `JMETER_ARGS`        | Allows passing additional arguments to `jmeter`, e.g. to define properties. | |
 
 ## Metrics
 
