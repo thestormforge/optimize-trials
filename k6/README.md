@@ -21,7 +21,6 @@ experiment files.
 | Environment Variable | Description |
 | -------------------- | ----------- |
 | `TEST_CASE_FILE`     | Path to the test case file mounted in the container. Defaults to /scripts/load_script.js. Associated VolumeMount required that contains this file. If the file is not found, the trial fails. |
-| `TEST_CASE_OUTPUT`   | The name of test case metrics output file used to push to the Prometheus PushGateway (must be valid Prometheus metric format). Defaults to prometheus.txt |
 | `PUSHGATEWAY_URL`    | The URL used to push K6 test run metrics. If not explicitly set, the Optimize controller will set it. |
 
 ## Metrics
