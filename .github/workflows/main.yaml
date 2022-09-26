@@ -88,11 +88,11 @@ jobs:
       id: k6_docker_build
       uses: docker/build-push-action@v2
       with:
-        builder: ${{ steps.locust_builder.outputs.name }}
+        builder: ${{ steps.k6_builder.outputs.name }}
         context: ./k6
         file: ./k6/Dockerfile
         push: true
-        tags: ${{ steps.k6_docker_meta.outputs.tags }}-locust
+        tags: ${{ steps.k6_docker_meta.outputs.tags }}-k6
         labels: ${{ steps.k6_docker_meta.outputs.labels }}
-    - name: Locust image digest
+    - name: K6 image digest
       run: echo ${{ steps.k6_docker_build.outputs.digest }}
