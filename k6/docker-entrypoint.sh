@@ -43,9 +43,12 @@ if [ -n "${PUSHGATEWAY_URL}" ]; then
     echo "Test case output was not found at ${TEST_CASE_OUTPUT}. Unable to push to Prometheus."
     exit 1
   fi
-
+  printf "K6 run complete.\n\nTest case output:\n"
   cat ${TEST_CASE_OUTPUT}
+  printf "Pushing metrics to ${PUSHGATEWAY_URL}\n"
   PUSH_OUTPUT=$(cat ${TEST_CASE_OUTPUT} | curl --fail-with-body -s --data-binary @- "${PUSHGATEWAY_URL}" &2>1)
+  printf "Push output:\n"
+  cat ${PUSH_OUTPUT}
 
   if [ -n "${PUSH_OUTPUT}" ]; then
     echo "Pushgateway returned an error (${PUSH_OUTPUT}). "
