@@ -31,3 +31,12 @@ jobs:
         docker tag ghcr.io/${{ github.repository }}:${TAG} ${{ github.repository }}:latest-locust
         docker push ${{ github.repository }}:${TAG}
         docker push ${{ github.repository }}:latest-locust
+
+    - name: K6 push release images
+      run: |
+        TAG=${GITHUB_REF##*/}-k6
+        docker pull ghcr.io/${{ github.repository }}:${TAG}
+        docker tag ghcr.io/${{ github.repository }}:${TAG} ${{ github.repository }}:${TAG}
+        docker tag ghcr.io/${{ github.repository }}:${TAG} ${{ github.repository }}:latest-k6
+        docker push ${{ github.repository }}:${TAG}
+        docker push ${{ github.repository }}:latest-k6
