@@ -1,4 +1,11 @@
+/*
+  Customize the end-of-test summary report to create a prometheus.txt file
+  containing the primary metrics to be send to the Pushgateway.
+ 
+  See https://k6.io/docs/results-visualization/end-of-test-summary/#customize-with-handlesummary
 
+  TODO: metrics are not typed yet, submetrics are skipped, thresholds are not supported
+*/
 export function handleSummary(data) {
   function toPrometheus(data) {
     let out = ""
