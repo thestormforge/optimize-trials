@@ -11,7 +11,7 @@ on:
 
 jobs:
   build-push:
-    name: Build and Push ${{ inputs.dir }}
+    name: Build and Push
     runs-on: ubuntu-latest
     steps:
 
