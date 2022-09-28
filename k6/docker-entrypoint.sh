@@ -60,6 +60,6 @@ if [ -n "${PUSHGATEWAY_URL}" ]; then
 
   if [ "$PUSH_OK" -ne 0 ]; then
     echo "Uploading to Pushgateway failed, curl exit code ${PUSH_OK}"
-    exit 1
+    exit $PUSH_OK
   fi
 fi
