@@ -3,7 +3,7 @@ set -e
 
 # Check for the test case file via either a passed-in env path or the default
 # In either case, the file should be mounted as a volume (from configmap, etc)
-TEST_CASE_FILE=${TEST_CASE_FILE:-"/scripts/load_script.js"}
+TEST_CASE_FILE=${TEST_CASE_FILE:-"/scripts/script.js"}
 
 if ! [ -f "${TEST_CASE_FILE}" ]; then
   echo "A test case JS file must be provided."
@@ -26,7 +26,7 @@ if [ -n "${PUSHGATEWAY_URL}" ]; then
   echo
 fi
 
-COMBINED_TEST_CASE_FILE="/tmp/combined_load_script.js"
+COMBINED_TEST_CASE_FILE="/tmp/combined_script.js"
 
 # Check for a custom handleSummary() in the provided script, add it otherwise
 cp "${TEST_CASE_FILE}" ${COMBINED_TEST_CASE_FILE}
