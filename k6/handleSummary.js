@@ -7,7 +7,7 @@
   TODO: metrics are not typed yet, submetrics are skipped, thresholds are not supported
 */
 export function handleSummary(data) {
-  outputFilename = __ENV.COMBINED_TEST_CASE_FILE || "prometheus.txt"
+  outputFilename = __ENV.PROMETHEUS_OUTPUT_FILE || "prometheus.txt";
 
   function toPrometheus(data) {
     let out = ""
