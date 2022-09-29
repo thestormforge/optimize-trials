@@ -7,9 +7,6 @@
   TODO: metrics are not typed yet, submetrics are skipped, thresholds are not supported
 */
 export function handleSummary(data) {
-  outputFilename = __ENV.PROMETHEUS_OUTPUT_FILE || "prometheus.txt";
-  console.log(outputFilename);
-  
   function toPrometheus(data) {
     let out = ""
     for (const metricName in data.metrics) {
@@ -29,6 +26,6 @@ export function handleSummary(data) {
   }
 
   return {
-    outputFilename: toPrometheus(data)
+    "/tmp/prometheus.txt": toPrometheus(data)
   }
 }
