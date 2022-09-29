@@ -12,7 +12,7 @@ fi
 
 # NOTE: handleSummary.js currently hardcodes the output file, we're instructing
 #       k6 to generate when its done.
-PROMETHEUS_OUTPUT_FILE="prometheus.txt"
+PROMETHEUS_OUTPUT_FILE="/tmp/prometheus.txt"
 
 # If PUSHGATEWAY_URL is defined, test the connection to see if its viable, exit with error if not
 if [ -n "${PUSHGATEWAY_URL}" ]; then
