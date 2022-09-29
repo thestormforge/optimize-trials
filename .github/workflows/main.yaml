@@ -23,3 +23,9 @@ jobs:
     uses: ./.github/workflows/build-push.yaml
     with:
       dir: locust
+
+  k6:
+    name: k6
+    uses: ./.github/workflows/build-push.yaml
+    with:
+      dir: k6

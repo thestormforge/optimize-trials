@@ -20,3 +20,10 @@ jobs:
     with:
       version: ${{ github.event.release.tag_name }}
       dir: locust
+
+  k6:
+    name: k6
+    uses: ./.github/workflows/promote.yaml
+    with:
+      version: ${{ github.event.release.tag_name }}
+      dir: k6
