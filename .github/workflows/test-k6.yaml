@@ -56,7 +56,7 @@ jobs:
     - name: Test metrics from Pushgateway
       working-directory: k6
       run: |
-        echo "Scarping metrics from Pushgateway..."
+        echo "Scraping metrics from Pushgateway..."
         curl --no-progress-meter http://localhost:9091/api/v1/metrics > tmp/metrics.json
         
         echo "Testing against metrics..."
