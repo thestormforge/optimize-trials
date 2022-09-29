@@ -8,7 +8,8 @@
 */
 export function handleSummary(data) {
   outputFilename = __ENV.PROMETHEUS_OUTPUT_FILE || "prometheus.txt";
-
+  console.log(outputFilename);
+  
   function toPrometheus(data) {
     let out = ""
     for (const metricName in data.metrics) {
