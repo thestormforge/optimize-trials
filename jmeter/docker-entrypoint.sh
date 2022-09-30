@@ -2,8 +2,7 @@
 set -e
 
 stats() {
-	cat "${REPORT_DIR}/statistics.json" \
-		| jq -r 'del( .Total.transaction ) | .Total|keys[] as $k | "\($k) \(.[$k])"'
+	jq -r 'del( .Total.transaction ) | .Total|keys[] as $k | "\($k) \(.[$k])"' < "${REPORT_DIR}/statistics.json"
 }
 
 TEST_CASE_FILE="${TEST_CASE_FILE:-/test/test.jmx}"
@@ -15,9 +14,20 @@ if [ ! -f "${TEST_CASE_FILE}" ]; then
 	exit 1
 fi
 
-jmeter -n -t "${TEST_CASE_FILE}" -l "/tmp/results.dat" -e -o "${REPORT_DIR}" $JMETER_ARGS
+# If PUSHGATEWAY_URL is defined, test the connection to see if its viable, exit with error if not
+if [ -n "${PUSHGATEWAY_URL}" ]; then
+  # tests if the Pushgateway is returning a successful
+  # HTTP response for /-/ready as a sanity check.
+  echo "Pinging Pushgateway..."
+  curl --no-progress-meter --fail --request-target "/-/ready" "${PUSHGATEWAY_URL}" || {
+    echo "PUSHGATEWAY_URL was specified but test connection to ${PUSHGATEWAY_URL} failed. Exiting."
+    return 1
+  }
+  echo
+fi
 
-stats
+# shellcheck disable=SC2086
+jmeter -n -t "${TEST_CASE_FILE}" -l "/tmp/results.dat" -e -o "${REPORT_DIR}" $JMETER_ARGS
 
 # Push the basic statistics
 if [ -n "${PUSHGATEWAY_URL}" ]; then
