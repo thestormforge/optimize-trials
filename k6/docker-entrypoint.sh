@@ -1,12 +1,12 @@
 #!/bin/sh
 set -e
 
-# Check for the test case file via either a passed-in env path or the default
+# Check for the test script file via either a passed-in env path or the default
 # In either case, the file should be mounted as a volume (from configmap, etc)
-TEST_CASE_FILE=${TEST_CASE_FILE:-"/scripts/script.js"}
+SCRIPT_FILE=${SCRIPT_FILE:-"/scripts/script.js"}
 
-if ! [ -f "${TEST_CASE_FILE}" ]; then
-  echo "A test case JS file must be provided."
+if ! [ -f "${SCRIPT_FILE}" ]; then
+  echo "A test script file must be provided."
   exit 1
 fi
 
@@ -26,19 +26,19 @@ if [ -n "${PUSHGATEWAY_URL}" ]; then
   echo
 fi
 
-COMBINED_TEST_CASE_FILE="/tmp/combined_script.js"
+COMBINED_SCRIPT_FILE="/tmp/combined_script.js"
 
 # Check for a custom handleSummary() in the provided script, add it otherwise
-cp "${TEST_CASE_FILE}" ${COMBINED_TEST_CASE_FILE}
-grep -q "export \+function \+handleSummary" "${TEST_CASE_FILE}" || cat "${TEST_CASE_FILE}" handleSummary.js > "${COMBINED_TEST_CASE_FILE}"
+cp "${SCRIPT_FILE}" ${COMBINED_SCRIPT_FILE}
+grep -q "export \+function \+handleSummary" "${SCRIPT_FILE}" || cat "${SCRIPT_FILE}" handleSummary.js > "${COMBINED_SCRIPT_FILE}"
 
-# Run the test case. If we used the default handleSummary.js snippet, the output
+# Run the test script. If we used the default handleSummary.js snippet, the output
 # file will be called prometheus.txt. If handleSummary was provided as part of
-# the test case js file, PROMETHEUS_OUTPUT_FILE will need to be set to the corresponding output file namespace
+# the test script file, PROMETHEUS_OUTPUT_FILE will need to be set to the corresponding output file namespace
 echo
 echo "Launching k6 test..."
 # shellcheck disable=SC2086
-k6 run ${SF_K6_ARGS} "${COMBINED_TEST_CASE_FILE}"
+k6 run ${SF_K6_ARGS} "${COMBINED_SCRIPT_FILE}"
 
 printf "\nk6 run complete"
 
@@ -46,7 +46,7 @@ printf "\nk6 run complete"
 if [ -n "${PUSHGATEWAY_URL}" ]; then
   # Check, if our handleSummary function wrote its output
   if ! [ -f "${PROMETHEUS_OUTPUT_FILE}" ]; then
-    echo "Test case output was not found at ${PROMETHEUS_OUTPUT_FILE}. Unable to push to Prometheus."
+    echo "Test script output was not found at ${PROMETHEUS_OUTPUT_FILE}. Unable to push to Prometheus."
     exit 1
   fi
 

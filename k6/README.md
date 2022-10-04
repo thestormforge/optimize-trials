@@ -11,7 +11,7 @@ the metrics need to be translated to be pushable to Prometheus. As a result, we 
 
 | Environment Variable | Description |
 | -------------------- | ----------- |
-| `TEST_CASE_FILE`     | Path to the test case file mounted in the container. Defaults to `/scripts/script.js`. Associated volume mount is required that contains this file. If the file is not found, the trial fails. |
+| `SCRIPT_FILE`        | Path to the test script file mounted in the container. Defaults to `/scripts/script.js`. Associated volume mount is required that contains this file. If the file is not found, the trial fails. |
 | `PUSHGATEWAY_URL`    | The URL used to push K6 test run metrics. If not explicitly set, the Optimize controller will set it. |
 
 ## Metrics
@@ -108,7 +108,7 @@ spec:
       - name: black-friday
         image: thestormforge/optimize-trials:k6-latest
         env:
-        - name: TEST_CASE_FILE
+        - name: SCRIPT_FILE
           value: /scripts/blackfriday.js
         - name: PUSHGATEWAY_URL
           value: http://pushgateway:9091/metrics/job/trialRun/instance/sandbox-1
