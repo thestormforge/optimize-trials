@@ -1,6 +1,6 @@
-# Trial Job - StormForge Performance
+# Apache JMeter Trial Image
 
-The StormForge Performance trial job leverages the `forge` CLI to launch a test case. The image will look for a test case definition (or will check to make sure it exists). Additionally, the image can introduce some JavaScript constants which can be referenced from the test case.
+TODO: …
 
 ## Usage
 
