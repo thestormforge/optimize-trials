@@ -1,4 +1,4 @@
-name: Test k6
+name: Test
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
         push: false
         pull: true
         load: true
-        tags: sf-trial-image-test-subject
+        tags: sf-k6-test
         cache-from: type=gha
         cache-to: type=gha,mode=max
     - name: Setup Docker Network
@@ -51,7 +51,7 @@ jobs:
           --env PUSHGATEWAY_URL=http://pushgateway:9091/metrics/job/sf_k6_test \
           --env SCRIPT_FILE=/test/simple.js \
           --env SF_K6_TARGET=http://testapp:8080 \
-          sf-trial-image-test-subject
+          sf-k6-test
 
     - name: Test metrics from Pushgateway
       working-directory: k6
