@@ -6,11 +6,9 @@ assert_logs_contains() {
     cat $LOGS_TEMPFILE | grep --quiet "$@" || (echo "grep failed: grep \"$@\"" > /dev/stderr; exit 1)
 }
 
-IMAGE_NAME="jmeter:tmp"
+IMAGE_NAME="${IMAGE_NAME:-"jmeter:tmp"}"
 CONTAINER_NAME="jmeter-test"
 LOGS_TEMPFILE="$(mktemp)"
-
-# docker build -t "${IMAGE_NAME}" "$(dirname $0)/.."
 
 docker run --rm --name "${CONTAINER_NAME}" -ti -v "$(pwd)/$(dirname $0):/test:ro" "${IMAGE_NAME}" 2>&1 | tee $LOGS_TEMPFILE
 

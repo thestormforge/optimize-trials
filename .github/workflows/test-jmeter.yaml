@@ -49,7 +49,7 @@ jobs:
           --network sf-test \
           -v ${PWD}/test:/test \
           --env PUSHGATEWAY_URL=http://pushgateway:9091/metrics/job/sf_trial_test \
-          --env TEST_CASE_FILE=/test/simple.js \
+          --env JMETER_TEST_PLAN_FILE=/test/test.jmx \
           sf-trial-image-test-subject
 
     - name: Test metrics from Pushgateway
