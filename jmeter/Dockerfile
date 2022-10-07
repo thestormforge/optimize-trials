@@ -15,7 +15,8 @@ RUN \
 RUN \
      curl -L -o jmeter.tgz https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz \
   && tar xpvzf jmeter.tgz \
-  && rm jmeter.tgz
+  && rm jmeter.tgz \
+  && rm -rf /apache-jmeter-${JMETER_VERSION}/docs
 
 ENV JMETER_BIN=/apache-jmeter-${JMETER_VERSION}/bin
 ENV PATH=$PATH:${JMETER_BIN}
