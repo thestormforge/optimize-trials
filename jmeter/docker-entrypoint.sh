@@ -5,12 +5,12 @@ stats() {
 	jq -r 'del( .Total.transaction ) | .Total|keys[] as $k | "\($k) \(.[$k])"' < "${REPORT_DIR}/statistics.json"
 }
 
-TEST_CASE_FILE="${TEST_CASE_FILE:-/test/test.jmx}"
+JMETER_TEST_PLAN_FILE="${JMETER_TEST_PLAN_FILE:-/test/test.jmx}"
 REPORT_DIR="/tmp/jmeter-report"
 JMETER_ARGS=${JMETER_ARGS:-}
 
-if [ ! -f "${TEST_CASE_FILE}" ]; then
-	echo "ERROR: TEST_CASE_FILE=${TEST_CASE_FILE} not found. Did you forget to mount as volume or via ConfigMap?" > /dev/stderr
+if [ ! -f "${JMETER_TEST_PLAN_FILE}" ]; then
+	echo "ERROR: JMETER_TEST_PLAN_FILE=${JMETER_TEST_PLAN_FILE} not found. Did you forget to mount as volume or via ConfigMap?" > /dev/stderr
 	exit 1
 fi
 
@@ -27,7 +27,7 @@ if [ -n "${PUSHGATEWAY_URL}" ]; then
 fi
 
 # shellcheck disable=SC2086
-jmeter -n -t "${TEST_CASE_FILE}" -l "/tmp/results.dat" -e -o "${REPORT_DIR}" $JMETER_ARGS
+jmeter -n -t "${JMETER_TEST_PLAN_FILE}" -l "/tmp/results.dat" -e -o "${REPORT_DIR}" $JMETER_ARGS
 
 # Push the basic statistics
 if [ -n "${PUSHGATEWAY_URL}" ]; then
