@@ -2,6 +2,11 @@
 
 This trial image contains the LoadRunner Java CLI, which can be found [here](https://admhelp.microfocus.com/lrc/en/2022.06/Content/Storm/t_cli_tools.htm).
 
+## Prerequisites
+
+* [Micro Focus's LoadRunner Cloud](https://www.microfocus.com/en-us/products/loadrunner-cloud/overview) license and credentials (to be used for `LOADRUNNER_CLOUD_CONNECT` like `connect=MyUsername:Mypwd or MyClientId:MyClientSecret`, see below.)
+* TODO: …
+
 ## Configuration
 
 | Environment Variable | Description |
