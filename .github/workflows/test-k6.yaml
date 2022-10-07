@@ -48,8 +48,8 @@ jobs:
         docker run \
           --network sf-test \
           -v ${PWD}/test:/test \
-          --env PUSHGATEWAY_URL=http://pushgateway:9091/metrics/job/sf_trial_test \
-          --env TEST_CASE_FILE=/test/simple.js \
+          --env PUSHGATEWAY_URL=http://pushgateway:9091/metrics/job/sf_k6_test \
+          --env SCRIPT_FILE=/test/simple.js \
           --env SF_K6_TARGET=http://testapp:8080 \
           sf-trial-image-test-subject
 
