@@ -55,8 +55,13 @@ jobs:
     - name: Test metrics from Pushgateway
       working-directory: jmeter
       run: |
+        mkdir -p tmp/
+
         echo "Scraping metrics from Pushgateway..."
         curl --no-progress-meter http://localhost:9091/api/v1/metrics > tmp/metrics.json
         
+        echo "tmp/metrics.json:"
+        cat tmp/metrics.json
+
         echo "Testing against metrics..."
-        test "$(jq -r '.data[0].http_reqs_count.metrics[0].value' tmp/metrics.json)" -eq "1"
+        test "$(jq -r '.data[0].minResTime.metrics[0].value' tmp/metrics.json)" -gt "10"
