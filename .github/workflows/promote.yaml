@@ -17,13 +17,9 @@ on:
       username:
         description: Docker Hub username
         required: true
-        default: ''
-        type: string
       password:
         description: Docker Hub password
         required: true
-        default: ''
-        type: string
 
 jobs:
   promote:
