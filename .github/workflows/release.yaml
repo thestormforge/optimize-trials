@@ -11,19 +11,25 @@ jobs:
     name: StormForge Perf
     uses: ./.github/workflows/promote.yaml
     with:
-      version: ${{ github.event.release.tag_name }}
       dir: stormforge-perf
+      version: ${{ github.event.release.tag_name }}
+      username: ${{ secrets.DOCKERHUB_USERNAME }}
+      password: ${{ secrets.DOCKERHUB_TOKEN }}
 
   locust:
     name: Locust
     uses: ./.github/workflows/promote.yaml
     with:
-      version: ${{ github.event.release.tag_name }}
       dir: locust
+      version: ${{ github.event.release.tag_name }}
+      username: ${{ secrets.DOCKERHUB_USERNAME }}
+      password: ${{ secrets.DOCKERHUB_TOKEN }}
 
   k6:
     name: k6
     uses: ./.github/workflows/promote.yaml
     with:
-      version: ${{ github.event.release.tag_name }}
       dir: k6
+      version: ${{ github.event.release.tag_name }}
+      username: ${{ secrets.DOCKERHUB_USERNAME }}
+      password: ${{ secrets.DOCKERHUB_TOKEN }}

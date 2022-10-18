@@ -13,6 +13,16 @@ on:
         required: true
         default: ''
         type: string
+      username:
+        description: Docker Hub username
+        required: true
+        default: ''
+        type: string
+      password:
+        description: Docker Hub password
+        required: true
+        default: ''
+        type: string
 
 jobs:
   promote:
@@ -23,8 +33,8 @@ jobs:
     - name: Login to DockerHub
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
 
     - name: Promote
       run: |
