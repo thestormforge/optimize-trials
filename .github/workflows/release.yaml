@@ -13,6 +13,7 @@ jobs:
     with:
       dir: stormforge-perf
       version: ${{ github.event.release.tag_name }}
+    secrets:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       password: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -22,6 +23,7 @@ jobs:
     with:
       dir: locust
       version: ${{ github.event.release.tag_name }}
+    secrets:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       password: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -31,5 +33,6 @@ jobs:
     with:
       dir: k6
       version: ${{ github.event.release.tag_name }}
+    secrets:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       password: ${{ secrets.DOCKERHUB_TOKEN }}
