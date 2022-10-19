@@ -36,3 +36,13 @@ jobs:
     secrets:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  jmeter:
+    name: JMeter
+    uses: ./.github/workflows/promote.yaml
+    with:
+      dir: jmeter
+      version: ${{ github.event.release.tag_name }}
+    secrets:
+      username: ${{ secrets.DOCKERHUB_USERNAME }}
+      password: ${{ secrets.DOCKERHUB_TOKEN }}

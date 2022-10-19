@@ -29,3 +29,9 @@ jobs:
     uses: ./.github/workflows/build-push.yaml
     with:
       dir: k6
+
+  jmeter:
+    name: JMeter
+    uses: ./.github/workflows/build-push.yaml
+    with:
+      dir: jmeter
