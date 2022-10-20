@@ -1,8 +1,53 @@
 # Trial Job - StormForge Performance
 
-The StormForge Performance trial job leverages the `forge` CLI to launch a test case. The image will look for a test case definition (or will check to make sure it exists). Additionally, the image can introduce some JavaScript constants which can be referenced from the test case.
+Running a trial job with [StormForge Performance Tessting](https://docs.stormforge.io/perftest/) differs a bit based on the [environment](https://docs.stormforge.io/perftest/getting-started/environments/) you want to use.
 
-## Configuration
+## Platform Environment
+
+To run a trial job on the `platform` environment, you can use the [`stormforge-cli` container image](https://docs.stormforge.io/stormforge-cli/) directly in your [experiment.yaml](https://docs.stormforge.io/optimize-pro/reference/experiment/v1beta2/#experiment).
+
+```yaml
+  trialTemplate:
+    spec:
+      initialDelaySeconds: 15
+      setupServiceAccountName: stormforge-setup
+      setupTasks:
+      - name: monitoring
+        args:
+        - prometheus
+        - $(MODE)
+      jobTemplate:
+        spec:
+          template:
+            spec:
+              containers:
+              - name: stormforge-cli
+                image: registry.stormforge.io/library/stormforge-cli
+                envFrom:
+                - secretRef:
+                    name: stormforge-secret
+                args:
+                # NOTE: --metrics-output is automatically activated via ENV variable
+                - create
+                - test-run
+                - "--test-case=testapp_labs_optimize_trial"
+                - "--watch-timeout=1h"
+                - "--watch"
+```
+
+This example snippet from an experiment uses the `stormforge-cli` for the trial pod. Authentication is handled via the `stormforge-secret` secret providing the necessary `STORMFORGE_TOKEN` environment variable.
+Via the `args` this trial launches a new test-run from the existing test case `testapp_labs_optimize_trial` and waits for it to finish.
+You can attach additional metadata via additional arguments like `--note`, `--title` or `--label`. See [`stormforge create test-run`](https://docs.stormforge.io/stormforge-cli/reference/#stormforge-create-test-run) for more options.
+
+With the `prometheus` setupTask Optimize Pro automatically provisions a prometheus cluster for each trial and injects a `PUSHGATEWAY_URL` into the trial pod. This environment variable triggers a metrics export at the end of the test run, so you can utilize these metrics for optimization criteria.
+
+## Standalone Environment
+
+To utilize the `standalone` environment, you need to build a container image from the `Dockerfile` leveraging the `forge` CLI to launch a test case. The image will look for a test case definition (or will check to make sure it exists). Additionally, the image can introduce some JavaScript constants which can be referenced from the test case.
+
+### Configuration
+
+The image provides a number of environment variables that can be configured for the test run:
 
 | Environment Variable | Description |
 | -------------------- | ----------- |
@@ -20,7 +65,7 @@ The StormForge Performance trial job leverages the `forge` CLI to launch a test 
 | ----- | ----------- |
 | `/etc/podinfo/labels` | If present, `name="value"` per-line labels to set on the test run. |
 
-## Metrics
+### Metrics
 
 | Name |
 | ---- |
@@ -36,7 +81,7 @@ The StormForge Performance trial job leverages the `forge` CLI to launch a test 
 | `percentile_95` |
 | `percentile_99` |
 
-## Example Kubernetes Manifest
+### Example: Standalone Kubernetes Manifest
 
 The following Kubernetes Job manifest illustrates how you might leverage this trial job container.
 
