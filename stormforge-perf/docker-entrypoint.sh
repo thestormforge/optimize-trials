@@ -55,5 +55,5 @@ if [ -n "${PUSHGATEWAY_URL}" ]; then
 		| jq -r '.data.attributes.basic_statistics|keys[] as $k | "\($k) \(.[$k])"' \
 		| curl --data-binary @- "${PUSHGATEWAY_URL}"
 else
-	echo "No Pushgateway URL" 1>&2
+	echo "WARN: No PUSHGATEWAY_URL configured" > /dev/stderr
 fi
