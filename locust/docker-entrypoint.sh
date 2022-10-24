@@ -14,5 +14,5 @@ if [ -n "${PUSHGATEWAY_URL}" ]; then
 	jq -r '.|keys[] as $k | "\($k) \(.[$k])"' < "output.json" \
 		| curl --data-binary @- "${PUSHGATEWAY_URL}"
 else
-	echo "No Pushgateway URL" 1>&2
+	echo "WARN: No PUSHGATEWAY_URL configured" > /dev/stderr
 fi
