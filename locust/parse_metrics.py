@@ -14,8 +14,8 @@ def parse_metric_key(key):
 def main(args):
     """
     Fetch metrics from locust csv and create raw metrics for
-    the prometheus push gateway The metrics pushed are
-    detailed in the README
+    the prometheus push gateway. The metrics pushed are
+    detailed in the README.
     """
     for row in csv.DictReader(open(args.metrics_file)):
         if row["Name"] == "Aggregated":

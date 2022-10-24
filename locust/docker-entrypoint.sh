@@ -11,8 +11,7 @@ locust -f "${LOCUSTFILE:-/mnt/locust/locustfile.py}" \
 
 if [ -n "${PUSHGATEWAY_URL}" ]; then
 	python parse_metrics.py --metrics_file locust_stats.csv
-	cat "output.json" \
-		| jq -r '.|keys[] as $k | "\($k) \(.[$k])"' \
+	jq -r '.|keys[] as $k | "\($k) \(.[$k])"' < "output.json" \
 		| curl --data-binary @- "${PUSHGATEWAY_URL}"
 else
 	echo "WARN: No PUSHGATEWAY_URL configured" > /dev/stderr
