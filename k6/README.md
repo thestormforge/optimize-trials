@@ -1,7 +1,7 @@
 # k6 Trial Job
 
 The k6 trial job leverages a custom k6 container, based on the [public
-`grafana/k6` container image](https://hub.docker.com/r/loadimpact/k6), to launch a provided test case. The image will
+`grafana/k6` container image](https://hub.docker.com/r/grafana/k6), to launch a provided test case. The image will
 check to make sure the provided test script exists. It is expected that the test script is valid k6 test case ([see k6 docs](https://k6.io/docs/using-k6/)) available in the container at runtime.
 
 In order to make the k6 output metrics usable by the Optimize Pro
