@@ -28,4 +28,11 @@ args+=(-o modules.cloud.test="${BLAZEMETER_TEST_URL}")
 # Execute Taurus
 bzt "${args[@]}"
 
-# TODO: Metrics.... Either CSV/XML output from Taurus or CURL the Blazemeter API for JSON summary metrics
+# Push the basic statistics
+if [ -n "${PUSHGATEWAY_URL}" ]; then
+	mlr --no-auto-unflatten --c2j cut -x -f label /tmp/final-stats.csv \
+		| jq -r '.[0]|keys[] as $k | "\($k) \(.[$k])"' \
+		| curl --data-binary @- "${PUSHGATEWAY_URL}"
+else
+	echo "WARN: No PUSHGATEWAY_URL configured" > /dev/stderr
+fi
