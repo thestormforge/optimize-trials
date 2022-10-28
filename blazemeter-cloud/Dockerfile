@@ -12,5 +12,7 @@ RUN \
   && truncate -s 0 /var/log/*lo
 
 COPY docker-entrypoint.sh /usr/local/bin/
+COPY bzt-rc /root/.bzt-rc
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 VOLUME ["/tmp", "/test"]
