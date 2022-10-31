@@ -1,0 +1,50 @@
+name: Test
+
+on:
+  push:
+    paths:
+    - 'blazemeter-cloud/**'
+    - '.github/workflows/test-blazemeter.yaml'
+    - '.github/actions/*'
+
+jobs:
+  test-blazemeter-cloud:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Run ShellCheck
+      uses: ludeeus/action-shellcheck@master
+      with:
+       scandir: "blazemeter-cloud/docker-entrypoint.sh"
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+      with:
+        version: "latest"
+        install: true
+    - name: Build Image
+      uses: docker/build-push-action@v3
+      with:
+        context: ./blazemeter-cloud
+        push: false
+        pull: true
+        load: true
+        tags: sf-trial-image-test-subject
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Run BlazeMeter Cloud image
+      working-directory: jmeter
+      run: |
+        mkdir -p tmp/
+
+        docker run sf-trial-image-test-subject > tmp/docker_output.txt 2>&1
+
+    - name: Test docker output
+      working-directory: jmeter
+      run: |
+        echo "tmp/docker_output.txt:"
+        cat tmp/docker_output.txt
+
+        echo "Testing for expected error message..."
+        test -n "$(grep 'ERROR: BLAZEMETER_API_ID not found' /tmp/docker_output.txt)
