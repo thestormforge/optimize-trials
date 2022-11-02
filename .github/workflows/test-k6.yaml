@@ -1,4 +1,4 @@
-name: Test
+name: Test K6
 
 on:
   push:
