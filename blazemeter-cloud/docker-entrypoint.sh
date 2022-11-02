@@ -12,7 +12,7 @@ if [ -z "${BLAZEMETER_API_SECRET}" ]; then
 fi
 
 if [ -z "${BLAZEMETER_TEST_URL}" ]; then
-	echo "ERROR: BLAZEMETER_TEST_URL not found. You must specifiy the URL to a Blazemeter test to run." > /dev/stderr
+	echo "ERROR: BLAZEMETER_TEST_URL not found. You must specify the URL to a Blazemeter test to run." > /dev/stderr
 	exit 1
 fi
 
