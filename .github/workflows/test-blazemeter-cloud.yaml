@@ -42,7 +42,7 @@ jobs:
       working-directory:  blazemeter-cloud
       continue-on-error: true
       run: |
-        docker run sf-trial-image-test-subject 2> tmp/docker_output.txt
+        docker run sf-trial-image-test-subject 1> tmp/docker_output.txt 2> tmp/docker_output.txt
 
     - name: Test docker output
       working-directory: blazemeter-cloud
