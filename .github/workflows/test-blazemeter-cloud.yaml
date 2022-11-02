@@ -51,4 +51,4 @@ jobs:
         cat tmp/docker_output.txt
 
         echo "Testing for expected error message..."
-        test -n "$(grep 'ERROR: BLAZEMETER_API_ID not found' tmp/docker_output.txt)
+        test -n "$(grep 'ERROR: BLAZEMETER_API_ID not found' tmp/docker_output.txt)"
