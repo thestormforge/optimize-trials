@@ -4,7 +4,7 @@ on:
   push:
     paths:
     - 'blazemeter-cloud/**'
-    - '.github/workflows/test-blazemeter.yaml'
+    - '.github/workflows/test-blazemeter-cloud.yaml'
     - '.github/actions/*'
 
 jobs:
