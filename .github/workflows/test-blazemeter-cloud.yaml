@@ -33,11 +33,14 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
-    - name: Run BlazeMeter Cloud image
+    - name: Make tmp directory
       working-directory: blazemeter-cloud
       run: |
         mkdir -p tmp/
 
+    - name: Run BlazeMeter Cloud image
+      working-directory:  blazemeter-cloud
+      run: |
         docker run sf-trial-image-test-subject > tmp/docker_output.txt 2>&1
 
     - name: Test docker output
