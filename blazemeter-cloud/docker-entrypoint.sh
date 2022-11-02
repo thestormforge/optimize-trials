@@ -30,8 +30,7 @@ bzt "${args[@]}"
 
 # Push the basic statistics
 if [ -n "${PUSHGATEWAY_URL}" ]; then
-    # shellcheck disable=SC1010
-	mlr --c2j remove-empty-columns then rename -g -r '\.0,' /tmp/final-stats.csv \
+	mlr --c2j "remove-empty-columns" "then" "rename" -g -r '\.0,' /tmp/final-stats.csv \
 		| jq -r 'keys[] as $k | "\($k) \(.[$k])"' \
 		| curl --data-binary @- "${PUSHGATEWAY_URL}"
 else
