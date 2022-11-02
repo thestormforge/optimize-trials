@@ -41,7 +41,7 @@ jobs:
     - name: Run BlazeMeter Cloud image
       working-directory:  blazemeter-cloud
       run: |
-        docker run sf-trial-image-test-subject > tmp/docker_output.txt 2>&1
+        docker run sf-trial-image-test-subject 2>&1 > tmp/docker_output.txt
 
     - name: Test docker output
       working-directory: blazemeter-cloud
