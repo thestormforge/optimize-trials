@@ -2,14 +2,13 @@
 
 ![Main](https://github.com/thestormforge/optimize-trials/workflows/Main/badge.svg)
 
-This repository is a collection of containers suitable for use as trial jobs during an experiment. Each container has specific requirements in terms of experiment setup, consult the individual container's documentation for more details.
+This repository is a collection of container images suitable for use as trial jobs during an [Optimize Pro](https://docs.stormforge.io/optimize-pro/) experiment. Each trial job has specific requirements in terms of experiment setup, consult the individual container's documentation for more details.
 
 ## Trial Jobs
 
-### StormForge Performance
-
-The StormForge Performance trial job invokes a [StormForge Performance](https://www.stormforge.io/performance-testing/) test case against your application, with each trial corresponding to a test run.
-
-### Locust
-
-The Locust trial job creates a [Locust](https://locust.io/) load test parametrized via environment variables.
+| Directory                                | Trial Job Description |
+|------------------------------------------|-----------------------|
+| [`jmeter/`](./jmeter/)                   | This trial job uses [JMeter](https://jmeter.apache.org/) to execute a test plan (`.jmx` file) to generate load for each Optimize Pro trial. |
+| [`k6/`](./k6/)                           | This trial job uses [k6](https://k6.io) to execute a test script written in JavaScript to generate load for each Optimize Pro trial. |
+| [`locust/`](./locust/)                   | This trial job executes a [Locust](https://locust.io/) load test written in Python to generate load for each Optimize Pro trial. |
+| [`stormforge-perf/`](./stormforge-perf/) | This trial job invokes a [StormForge Performance Testing](https://www.stormforge.io/performance-testing/) test case against your application, with each trial corresponding to a test run. |
