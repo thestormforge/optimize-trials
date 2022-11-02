@@ -8,14 +8,10 @@ This repository is a collection of container images suitable for use as trial jo
 
 | Directory                                | Trial Job Description |
 |------------------------------------------|-----------------------|
-| [`jmeter/`](./jmeter/)                   | |
-| [`k6/`](./k6/)                           | |
-| [`locust/`](./locust/)                   | |
-| [`stormforge-perf/`](./stormforge-perf/) | |
-### StormForge Performance
+| [`jmeter/`](./jmeter/)                   | This trial job uses [JMeter](https://jmeter.apache.org/) to execute a test plan (`.jmx` file) to generate load for each Optimize Pro trial. |
+| [`k6/`](./k6/)                           | This trial job uses [k6](https://k6.io) to execute a test script written in JavaScript to generate load for each Optimize Pro trial. |
+| [`locust/`](./locust/)                   | This trial job executes a [Locust](https://locust.io/) load test written in Python to generate load for each Optimize Pro trial. |
+| [`stormforge-perf/`](./stormforge-perf/) | This trial job invokes a [StormForge Performance Testing](https://www.stormforge.io/performance-testing/) test case against your application, with each trial corresponding to a test run. |
 
-The StormForge Performance trial job invokes a [StormForge Performance](https://www.stormforge.io/performance-testing/) test case against your application, with each trial corresponding to a test run.
 
-### Locust
 
-The Locust trial job creates a [Locust](https://locust.io/) load test parametrized via environment variables.
