@@ -1,6 +1,6 @@
 # BlazeMeter Cloud Trial Image
 
-The [BlazeMeter Cloud](https://www.blazemeter.com/) trial job enables you to use BlazeMeter performance tests in your Optimize Pro experiments. It leverages a custom container image, based on the the official BlazeMeter Taurus([https://](https://gettaurus.org/) [image](https://hub.docker.com/r/blazemeter/taurus/).
+The [BlazeMeter Cloud](https://www.blazemeter.com/) trial job enables you to use BlazeMeter performance tests in your Optimize Pro experiments. It leverages a custom container image, based on the the official [BlazeMeter Taurus](https://gettaurus.org/) [container image](https://hub.docker.com/r/blazemeter/taurus/).
 
 Please note that, while this trial job does utilize BlazeMeter Taurus, it only officially supports cloud provisioned test execution using BlazeMeter Cloud.
 None of the local executors provided by Taurus are officially supported with this trial job at this time.
