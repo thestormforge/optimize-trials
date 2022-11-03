@@ -1,0 +1,20 @@
+modules:
+  cloud:
+    timeout: 10s  # BlazeMeter API client timeout
+    browser-open: none  # auto-open browser on test start/end/both/none
+    check-interval: 5s  # interval which Taurus uses to query test status from BlazeMeter
+    public-report: false  # make test report public, disabled by default
+    send-report-email: false  # send report email once test is finished, disabled by default
+    request-logging-limit: 10240 # use this to dump more of request/response data into logs, for debugging
+
+---
+
+reporting:
+- module: final-stats
+  summary: true  # overall samples count and percent of failures
+  percentiles: true  # display average times and percentiles
+  summary-labels: true # provides list of sample labels, status, percentage of completed, avg time and errors
+  failed-labels: true  # provides list of sample labels with failures
+  test-duration: true  # provides test duration
+  dump-csv: /tmp/final-stats.csv
+
