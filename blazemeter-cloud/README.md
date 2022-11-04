@@ -55,7 +55,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: black-friday
-        image: thestormforge/optimize-trials:latest-jmeter
+        image: thestormforge/optimize-trials:latest-blazemeter-cloud
         env:
         - name: PUSHGATEWAY_URL
           value: http://pushgateway:9091/metrics/job/trialRun/instance/sandbox-1
