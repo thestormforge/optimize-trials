@@ -46,3 +46,13 @@ jobs:
     secrets:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  blazemeter-cloud:
+    name: BlazeMeter Cloud
+    uses: ./.github/workflows/promote.yaml
+    with:
+      dir: blazemeter-cloud
+      version: ${{ github.event.release.tag_name }}
+    secrets:
+      username: ${{ secrets.DOCKERHUB_USERNAME }}
+      password: ${{ secrets.DOCKERHUB_TOKEN }}
