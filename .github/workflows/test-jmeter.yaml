@@ -1,14 +1,14 @@
-name: Test K6
+name: Test JMeter
 
 on:
   push:
     paths:
-    - 'k6/**'
-    - '.github/workflows/test-k6.yaml'
+    - 'jmeter/**'
+    - '.github/workflows/test-jmeter.yaml'
     - '.github/actions/*'
 
 jobs:
-  test-k6:
+  test-jmeter:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -16,7 +16,7 @@ jobs:
     - name: Run ShellCheck
       uses: ludeeus/action-shellcheck@master
       with:
-       scandir: "k6/docker-entrypoint.sh"
+       scandir: "jmeter/docker-entrypoint.sh"
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
       with:
@@ -25,11 +25,11 @@ jobs:
     - name: Build Image
       uses: docker/build-push-action@v3
       with:
-        context: ./k6
+        context: ./jmeter
         push: false
         pull: true
         load: true
-        tags: sf-k6-test
+        tags: sf-trial-image-test-subject
         cache-from: type=gha
         cache-to: type=gha,mode=max
     - name: Setup Docker Network
@@ -42,22 +42,26 @@ jobs:
       run: |
         docker run --network sf-test --name testapp -d -p 8080:8080 --env DISABLE_TLS=true stormforger/testapp
 
-    - name: Run k6 image
-      working-directory: k6
+    - name: Run JMeter image
+      working-directory: jmeter
       run: |
         docker run \
           --network sf-test \
           -v ${PWD}/test:/test \
-          --env PUSHGATEWAY_URL=http://pushgateway:9091/metrics/job/sf_k6_test \
-          --env SCRIPT_FILE=/test/simple.js \
-          --env SF_K6_TARGET=http://testapp:8080 \
-          sf-k6-test
+          --env PUSHGATEWAY_URL=http://pushgateway:9091/metrics/job/sf_trial_test \
+          --env JMETER_TEST_PLAN_FILE=/test/test.jmx \
+          sf-trial-image-test-subject
 
     - name: Test metrics from Pushgateway
-      working-directory: k6
+      working-directory: jmeter
       run: |
+        mkdir -p tmp/
+
         echo "Scraping metrics from Pushgateway..."
         curl --no-progress-meter http://localhost:9091/api/v1/metrics > tmp/metrics.json
         
+        echo "tmp/metrics.json:"
+        cat tmp/metrics.json
+
         echo "Testing against metrics..."
-        test "$(jq -r '.data[0].http_reqs_count.metrics[0].value' tmp/metrics.json)" -eq "1"
+        test "$(jq -r '.data[0].minResTime.metrics[0].value' tmp/metrics.json)" -gt "10"

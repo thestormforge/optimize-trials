@@ -1,6 +1,6 @@
 # Trial Job - Locust
 
-The Locust job uses Locust to launch a load test performed by Locust and collect the metrics at the end of the job. The metrics are then pushed to the Prometheus Pushgateway.
+The Locust job uses Locust, based on the public [`locustio/locust`](https://hub.docker.com/r/locustio/locust) image, to launch a load test and collect the metrics at the end of the job. The metrics are then pushed to the Prometheus Pushgateway.
 
 ## Configuration
 
@@ -14,6 +14,9 @@ The Locust job uses Locust to launch a load test performed by Locust and collect
 | `PUSHGATEWAY_URL`    | The URL used to push Locust test run metrics. | |
 
 ## Metrics
+
+The metrics below are exported from the result of the Locust test via the `parse_metrics.py` script, if a `PUSHGATEWAY_URL` environment variable is configured.
+Users can either setup their own [Prometheus Pushgateway](https://github.com/prometheus/pushgateway) or use the [`prometheus` setupTask](https://docs.stormforge.io/optimize-pro/concepts/trials/#prometheus) in their experiment to provision a Pushgateway automatically.
 
 | Name |
 | ---- |

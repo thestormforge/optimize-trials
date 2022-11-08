@@ -62,4 +62,6 @@ if [ -n "${PUSHGATEWAY_URL}" ]; then
     echo "Uploading to Pushgateway failed, curl exit code ${PUSH_OK}"
     exit $PUSH_OK
   fi
+else
+  echo "WARN: No PUSHGATEWAY_URL configured" > /dev/stderr
 fi
