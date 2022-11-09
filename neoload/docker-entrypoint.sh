@@ -31,7 +31,7 @@ fi
 cp "${TEST_FILE}" /tmp/neoload-stormforge.yaml
 TEST_FILE="/tmp/neoload-stormforge.yaml"
 
-neoload login ${NEOLOAD_TOKEN} 
+neoload login "${NEOLOAD_TOKEN}"
 neoload test-settings --zone ${ZONE}  --lgs ${LGS} --scenario ${SCENARIO} create "${TEST_NAME}"
 
 neoload project --path ${TEST_FILE} upload
