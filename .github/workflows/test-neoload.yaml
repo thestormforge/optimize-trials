@@ -35,6 +35,7 @@ jobs:
 
     - name: Run NeoLoad image
       working-directory: neoload
+      continue-on-error: true
       run: |
         mkdir -p tmp/
 
