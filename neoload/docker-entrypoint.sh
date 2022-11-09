@@ -1,27 +1,29 @@
 #!/bin/bash
 set -e
 
-if [ -z "${ZONE}" ] ; then
+if [ -z "${ZONE}" ]; then
 	ZONE="USEGCP"
 fi
 
-if [ -z "${LGS}" ] ; then
+if [ -z "${LGS}" ]; then
 	LGS=2
 fi
 
-if [ -z "${SCENARIO}" ] ; then
+if [ -z "${SCENARIO}" ]; then
 	SCENARIO="StormForgeScenario"
 fi
 
-if [ -z "${TEST_NAME}" ] ; then
+if [ -z "${TEST_NAME}" ]; then
 	TEST_NAME="SF-"$(uuidgen)
 fi
 
-if [ -z "${NEOLOAD_TOKEN}" ] ; then
-	NEOLOAD_TOKEN="secret"
+if [ -z "${NEOLOAD_TOKEN}" ]; then
+	echo "ERROR: NEOLOAD_TOKEN not found. You must specify a valid NeoLoad authentication token to access NeoLoad Web." > /dev/stderr
+	exit 1
 fi
 
-if [ -z "${TEST_FILE}" ] ; then
+if [ ! -f "${TEST_FILE}" ]; then
+	echo "ERROR: TEST_FILE = ${TEST_FILE} not found. Did you forget to mount as volume or via ConfigMap?" > /dev/stderr
 	exit 1
 fi
 

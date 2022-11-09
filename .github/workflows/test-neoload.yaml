@@ -1,4 +1,4 @@
-name: Test
+name: Test NeoLoad
 
 on:
   push:
@@ -32,32 +32,19 @@ jobs:
         tags: sf-neoload-test
         cache-from: type=gha
         cache-to: type=gha,mode=max
-    - name: Setup Docker Network
-      run: |
-        docker network create --driver bridge sf-test
-    - name: Start Pushgateway
-      run: |
-        docker run --network sf-test --name pushgateway -d -p 9091:9091 prom/pushgateway
-    - name: Start Testapp
-      run: |
-        docker run --network sf-test --name testapp -d -p 8080:8080 --env DISABLE_TLS=true stormforger/testapp
 
-    - name: Run neoload image
+    - name: Run NeoLoad image
       working-directory: neoload
       run: |
-        # TODO: …
+        mkdir -p tmp/
 
-    - name: Test metrics from Pushgateway
+        docker run sf-neoload-test > tmp/docker_output.txt 2>&1
+
+    - name: Test docker output
       working-directory: neoload
       run: |
-        mkdir -p tmp
+        echo "tmp/docker_output.txt:"
+        cat tmp/docker_output.txt
 
-        echo "Scraping metrics from Pushgateway..."
-        curl --no-progress-meter http://localhost:9091/api/v1/metrics > tmp/metrics.json
-        
-        echo "tmp/metrics.json:"
-        cat tmp/metrics.json
-        echo
-
-        echo "Testing against metrics..."
-        test "$(jq -r '.data[0].http_reqs_count.metrics[0].value' tmp/metrics.json)" -eq "1"
+        echo "Testing for expected error message..."
+        test -n "$(grep 'ERROR: NEOLOAD_TOKEN not found' tmp/docker_output.txt)"
