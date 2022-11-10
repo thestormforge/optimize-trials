@@ -12,4 +12,5 @@ This repository is a collection of container images suitable for use as trial jo
 | [`jmeter/`](./jmeter/)                     | This trial job uses [JMeter](https://jmeter.apache.org/) to execute a test plan (`.jmx` file) to generate load for each Optimize Pro trial. |
 | [`k6/`](./k6/)                             | This trial job uses [k6](https://k6.io) to execute a test script written in JavaScript to generate load for each Optimize Pro trial. |
 | [`locust/`](./locust/)                     | This trial job executes a [Locust](https://locust.io/) load test written in Python to generate load for each Optimize Pro trial. |
+| [`neoload/`](./neoload/)                   | This trial job invokes a [NeoLoad Web](https://www.tricentis.com/products/performance-testing-neoload) cloud-hosted performance test against your application, with each trial corresponding to a test run. |
 | [`stormforge-perf/`](./stormforge-perf/)   | This trial job invokes a [StormForge Performance Testing](https://www.stormforge.io/performance-testing/) test case against your application, with each trial corresponding to a test run. |
