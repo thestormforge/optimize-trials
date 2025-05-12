@@ -1,6 +1,8 @@
-# StormForge Optimize - Trials
+# StormForge Optimize Pro - Trials
 
-![Main](https://github.com/thestormforge/optimize-trials/workflows/Main/badge.svg)
+This code base has been deprecated and is no longer supported.
+
+## Overview
 
 This repository is a collection of container images suitable for use as trial jobs during an [Optimize Pro](https://docs.stormforge.io/optimize-pro/) experiment. Each trial job has specific requirements in terms of experiment setup, consult the individual container's documentation for more details.
 
